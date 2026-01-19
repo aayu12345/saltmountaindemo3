@@ -1,0 +1,766 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+    /* Designer Palette: "Midnight Alpine" */
+    /* Moving away from flat black to deep, rich slate blue */
+    --bg-color: #0f172a;
+    /* Slate 900 */
+    --text-primary: #f1f5f9;
+    /* Slate 100 */
+    --text-secondary: #94a3b8;
+    /* Slate 400 */
+
+    /* Accent: Platinum/Moonlight (Replaces Gold for a cleaner, icy luxury look) */
+    --accent-gold: #e2e8f0;
+    --accent-gold-hover: #cbd5e1;
+
+    /* Glassmorphism tuned for blue-tinted dark mode */
+    --glass-bg: rgba(30, 41, 59, 0.65);
+    /* Slate 800 with opacity */
+    --glass-border: rgba(148, 163, 184, 0.2);
+    --card-hover: rgba(51, 65, 85, 0.5);
+    /* Slate 700 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    /* Global Fixed Background Image with Blue-Slate Overlay */
+    background-image: linear-gradient(rgba(15, 23, 42, 0.94), rgba(15, 23, 42, 0.88)), url('https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* Ensures image is static while content scrolls */
+    color: var(--text-primary);
+    font-family: 'Manrope', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+}
+
+/* Utilities */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    background: transparent;
+}
+
+.btn:hover {
+    background: var(--accent-gold);
+    color: var(--bg-color);
+}
+
+.btn-primary {
+    background: var(--accent-gold);
+    color: var(--bg-color);
+}
+
+.btn-primary:hover {
+    background: var(--accent-gold-hover);
+    color: var(--bg-color);
+}
+
+/* Navbar */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 2rem 0;
+    z-index: 1000;
+    transition: background 0.3s ease;
+}
+
+nav.scrolled {
+    background: rgba(15, 23, 42, 0.95);
+    /* Slate 900 background */
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    /* Fixes vertical alignment of text links vs button */
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--accent-gold);
+}
+
+/* Specific adjustment for Navbar Button to look less bulky */
+.nav-links .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.8rem;
+    margin-left: 1rem;
+    /* Slight separation from text links */
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    z-index: -1;
+    /* Placeholder gradient if image fails or before load */
+    background: linear-gradient(45deg, #1a1a1a, #2c3e50);
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    padding: 2rem;
+    z-index: 1;
+    transform: translateY(30px);
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.5s;
+}
+
+.hero-subtitle {
+    display: block;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+    font-size: 5rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+}
+
+/* Booking Widget */
+.booking-widget {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem 3rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    border-radius: 2px;
+    width: 90%;
+    max-width: 1000px;
+    justify-content: space-between;
+}
+
+.widget-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.widget-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+}
+
+.widget-input {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-family: 'Manrope', sans-serif;
+    outline: none;
+    cursor: pointer;
+}
+
+/* About Section */
+.about-section {
+    padding: 5rem 0;
+    /* Reduced from 10rem */
+    background: transparent;
+    /* Allows body fixed background to show */
+    position: relative;
+}
+
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.about-text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.about-img-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.about-subtitle {
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.about-title {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.about-desc {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.about-image {
+    width: 100%;
+    border-radius: 2px;
+    filter: brightness(0.9);
+    transition: filter 0.3s ease;
+}
+
+.about-image:hover {
+    filter: brightness(1);
+}
+
+.about-image-large {
+    height: 500px;
+    object-fit: cover;
+}
+
+.about-image-small {
+    height: 350px;
+    object-fit: cover;
+}
+
+/* Why Choose Us Section */
+.choose-us-section {
+    position: relative;
+    padding: 6rem 0;
+    /* Reduced from 10rem */
+    width: 100%;
+    background: transparent;
+    /* Seamless with global body background */
+    color: #ffffff;
+    overflow: hidden;
+}
+
+/* Overlay removed to prevent color block difference */
+.choose-us-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.choose-us-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.choose-subtitle {
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.choose-title {
+    font-size: 4rem;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 4rem;
+    font-weight: 400;
+}
+
+/* 4-Column Accordion (Hover Based) */
+.choose-grid {
+    display: flex;
+    /* Changed from grid to flex */
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1600px;
+    height: 450px;
+    /* Fixed height for the accordion */
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.choose-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    flex: 1;
+    /* Default: all equal width */
+    transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Smooth expansion */
+    border-radius: 4px;
+}
+
+/* Hover - Expands slightly ("thoda sa") */
+.choose-card:hover {
+    flex: 1.8;
+    /* Expands to roughly double the others */
+}
+
+.choose-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease, filter 0.6s ease;
+    filter: brightness(0.8);
+    /* Slightly dimmed by default */
+}
+
+.choose-card:hover img {
+    filter: brightness(1);
+    /* Bright on hover */
+    transform: scale(1.05);
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    text-align: left;
+    white-space: nowrap;
+    /* Prevent text wrapping during animation */
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+
+.choose-card:hover .card-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+    opacity: 1;
+}
+
+.choose-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+    text-transform: uppercase;
+    transition: all 0.5s;
+}
+
+.choose-card:hover h3 {
+    font-size: 1.8rem;
+    /* Slight resize on hover */
+    color: var(--accent-gold);
+}
+
+.card-link-text {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+.choose-card:hover .card-link-text {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-arrow {
+    transition: transform 0.3s ease;
+}
+
+.choose-card:hover .card-arrow {
+    transform: translateX(5px);
+}
+
+/* Image Showcase / Prallax */
+.showcase {
+    padding: 0 0 8rem 0;
+}
+
+.showcase-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.showcase-img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    filter: brightness(0.8);
+    transition: filter 0.5s;
+}
+
+.showcase-img:hover {
+    filter: brightness(1);
+}
+
+.showcase-content {
+    padding-right: 2rem;
+}
+
+.showcase-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+}
+
+.showcase-list {
+    list-style: none;
+    margin-bottom: 3rem;
+}
+
+.showcase-list li {
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: padding 0.3s;
+}
+
+.showcase-list li:hover {
+    padding-left: 1rem;
+    color: var(--accent-gold);
+}
+
+.arrow {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.showcase-list li:hover .arrow {
+    opacity: 1;
+}
+
+/* Footer */
+footer {
+    background: rgba(15, 23, 42, 0.95);
+    /* Slate 900 background */
+    border-top: 1px solid var(--glass-border);
+    padding: 5rem 0 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 4rem;
+}
+
+.footer-brand h4 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.footer-col h5 {
+    color: var(--accent-gold);
+    margin-bottom: 1.5rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--text-primary);
+}
+
+.copyright {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+/* Animations */
+@keyframes fadeUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+
+    /* Tablet: Adjust Accordion and Padding */
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .hero h1 {
+        font-size: 4rem;
+    }
+
+    .booking-widget {
+        width: 95%;
+        padding: 1rem 2rem;
+    }
+
+    /* Accordion on Tablet: Less expansion difference */
+    .choose-grid {
+        height: 400px;
+        gap: 1rem;
+    }
+
+    .choose-card:hover {
+        flex: 1.5;
+    }
+
+    .about-image-large {
+        height: 400px;
+    }
+
+    .about-image-small {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Mobile Navigation */
+    .nav-content {
+        flex-direction: column;
+        gap: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .nav-links {
+        display: flex;
+        /* Show links on mobile */
+        gap: 1.5rem;
+        font-size: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Hero adjustments */
+    .hero h1 {
+        font-size: 2.5rem;
+        /* Smaller for mobile */
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+    }
+
+    .hero-content {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    /* Booking Widget Stacking */
+    .booking-widget {
+        position: relative;
+        /* Not absolute on mobile */
+        bottom: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        margin-top: -50px;
+        /* Pull up into hero slightly */
+        background: rgba(15, 23, 42, 0.98);
+        /* More solid for readability */
+        padding: 2rem;
+        border: none;
+        border-top: 1px solid var(--glass-border);
+    }
+
+    .widget-group {
+        border-bottom: 1px solid var(--glass-border);
+        padding-bottom: 1rem;
+    }
+
+    .widget-group:last-child {
+        border-bottom: none;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Section Spacing */
+    .about-section,
+    .choose-us-section,
+    .showcase,
+    footer {
+        padding: 4rem 0 !important;
+        /* Force reduced padding */
+    }
+
+    /* About Section Stacking */
+    .about-container {
+        grid-template-columns: 1fr;
+        /* Stack columns */
+        gap: 3rem;
+    }
+
+    .about-title {
+        font-size: 2.2rem;
+    }
+
+    .about-img-col {
+        order: -1;
+        /* Show images first on mobile? Optional. Keeping text first usually better. */
+    }
+
+    /* Accordion Stacking */
+    .choose-grid {
+        flex-direction: column;
+        /* Stack vertically */
+        height: auto;
+        /* Allow auto height */
+        gap: 1rem;
+    }
+
+    .choose-card {
+        height: 250px;
+        /* Fixed height per card */
+        width: 100%;
+        flex: none;
+        /* Disable flex growing/shrinking logic */
+    }
+
+    .choose-card:hover {
+        flex: none;
+        /* No expansion on mobile, just hover effects */
+        transform: scale(1.02);
+    }
+
+    .choose-title {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Showcase Stacking */
+    .showcase-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .showcase-content h2 {
+        font-size: 2.2rem;
+    }
+
+    .showcase-img {
+        height: 300px;
+    }
+
+    /* Footer Stacking */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        text-align: center;
+    }
+}
