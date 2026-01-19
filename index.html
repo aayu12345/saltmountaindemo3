@@ -14,6 +14,14 @@
     <nav id="navbar">
         <div class="container nav-content">
             <a href="#" class="logo">Salt Mountain.</a>
+
+            <!-- Hamburger Menu Icon -->
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
             <div class="nav-links">
                 <a href="#properties">Properties</a>
                 <a href="#management">Management</a>
@@ -280,6 +288,18 @@
                 }
             });
         });
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+
+                // Optional: Animate lines to X (if we added CSS for it)
+                // toggle.classList.toggle('is-active'); 
+            });
+        }
     </script>
 </body>
 
