@@ -624,7 +624,15 @@ footer {
 
 @media (max-width: 768px) {
 
-    /* Mobile Navigation */
+    /* Navbar styling for mobile */
+    nav {
+        background: rgba(15, 23, 42, 0.98);
+        /* Solid background on mobile */
+        position: relative;
+        /* relative/fixed depends on preference, keeping fixed but solid */
+        position: fixed;
+    }
+
     .nav-content {
         flex-direction: column;
         gap: 1rem;
@@ -633,134 +641,133 @@ footer {
 
     .nav-links {
         display: flex;
-        /* Show links on mobile */
-        gap: 1.5rem;
-        font-size: 0.8rem;
+        gap: 1rem;
+        font-size: 0.75rem;
         flex-wrap: wrap;
         justify-content: center;
+        background: rgba(15, 23, 42, 0.5);
+        /* subtle grouping bg */
+        padding: 0.5rem;
+        border-radius: 4px;
+        width: 100%;
+    }
+
+    .nav-links .btn {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 0.5rem;
+        text-align: center;
     }
 
     /* Hero adjustments */
-    .hero h1 {
-        font-size: 2.5rem;
-        /* Smaller for mobile */
-        margin-bottom: 1.5rem;
-    }
-
-    .hero-subtitle {
-        font-size: 0.8rem;
-        letter-spacing: 2px;
+    .hero {
+        height: auto;
+        /* Allow growth */
+        min-height: 100vh;
+        padding-top: 180px;
+        /* Space for the taller mobile navbar */
+        padding-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        /* Push content down or center? Center often better for mobile hero */
+        justify-content: center;
     }
 
     .hero-content {
         width: 100%;
-        padding: 0 1rem;
+        padding: 0 1.5rem;
+        margin-bottom: 2rem;
+        /* Space between text and widget */
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.75rem;
     }
 
     /* Booking Widget Stacking */
     .booking-widget {
         position: relative;
-        /* Not absolute on mobile */
         bottom: auto;
         left: auto;
         transform: none;
-        width: 100%;
+        width: 90%;
+        /* Slight margin on sides */
         flex-direction: column;
         align-items: stretch;
-        margin-top: -50px;
-        /* Pull up into hero slightly */
+        margin-top: 0;
+        /* No negative overlap */
         background: rgba(15, 23, 42, 0.98);
-        /* More solid for readability */
-        padding: 2rem;
-        border: none;
-        border-top: 1px solid var(--glass-border);
+        padding: 1.5rem;
+        border: 1px solid var(--glass-border);
+        border-radius: 8px;
+        /* Rounded corners on mobile */
     }
 
     .widget-group {
         border-bottom: 1px solid var(--glass-border);
         padding-bottom: 1rem;
+        margin-bottom: 1rem;
     }
 
     .widget-group:last-child {
         border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 
-    .btn {
-        width: 100%;
-        text-align: center;
+    .widget-label {
+        margin-bottom: 0.5rem;
     }
 
-    /* Section Spacing */
+    /* General Spacing Reductions */
     .about-section,
     .choose-us-section,
     .showcase,
     footer {
         padding: 4rem 0 !important;
-        /* Force reduced padding */
     }
 
-    /* About Section Stacking */
-    .about-container {
-        grid-template-columns: 1fr;
-        /* Stack columns */
+    /* Grid Corrections */
+    .about-container,
+    .showcase-grid,
+    .footer-content,
+    .choose-grid {
+        display: flex;
+        /* Use flex column for stacks */
+        flex-direction: column;
+        grid-template-columns: none;
+        /* Override grid */
         gap: 3rem;
     }
 
-    .about-title {
-        font-size: 2.2rem;
-    }
-
-    .about-img-col {
-        order: -1;
-        /* Show images first on mobile? Optional. Keeping text first usually better. */
-    }
-
-    /* Accordion Stacking */
     .choose-grid {
-        flex-direction: column;
-        /* Stack vertically */
         height: auto;
-        /* Allow auto height */
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
     .choose-card {
         height: 250px;
-        /* Fixed height per card */
-        width: 100%;
         flex: none;
-        /* Disable flex growing/shrinking logic */
+        width: 100%;
+        border-radius: 6px;
     }
 
     .choose-card:hover {
         flex: none;
-        /* No expansion on mobile, just hover effects */
-        transform: scale(1.02);
     }
 
-    .choose-title {
-        font-size: 2.2rem;
-        margin-bottom: 2rem;
-    }
-
-    /* Showcase Stacking */
-    .showcase-grid {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .showcase-content h2 {
-        font-size: 2.2rem;
+    .footer-content {
+        text-align: center;
     }
 
     .showcase-img {
+        width: 100%;
         height: 300px;
-    }
-
-    /* Footer Stacking */
-    .footer-content {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-        text-align: center;
     }
 }
